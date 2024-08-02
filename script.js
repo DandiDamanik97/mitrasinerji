@@ -19,3 +19,12 @@ $(document).ready(function () {
     autoclose: true, // Menutup datepicker setelah memilih tanggal
   });
 });
+
+// JavaScript to handle the popup
+document.getElementById("openPopup").addEventListener("click", function () {
+  document.getElementById("customerPopup").style.display = "flex";
+});
+
+document.getElementById("closePopup").addEventListener("click", function () {
+  document.getElementById("customerPopup").style.display = "none";
+});

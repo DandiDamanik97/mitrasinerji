@@ -107,22 +107,41 @@
                     <input type="text" class="form-control short-label" id="datepicker">
                 </div>
             </div>
-            <!-- <div class="mb-1 row">
-                <label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
-                <div class="col-sm-10">
-                <input type="text" class="form-control  short-label" id="tanggal">
-                </div>
-            </div> -->
             <div class="mb-1 row">
                 <label for="Customer" class="col-sm-2 col-form-label">Customer</label>
                 <div class="col-sm-10">
                 </div>
             </div>
-            <div class="mb-1 row">
-                <label for="kode" class="col-sm-2 col-form-label">Kode</label>
-                <div class="col-sm-10">
-                <input type="text" class="form-control short-label" id="kode">
-                </div>
+            <div class="mb-1 row align-items-center">
+            <label for="no" class="col-sm-2 col-form-label">Kode</label>
+                <div class="col-sm-10 d-flex align-items-center">
+                <input type="text" class="form-control short-label me-2" id="no" readonly>
+                <button type="button" id="openPopup" class=" btn btn-primary col-sm-2 col-form-label">Kode</button>
+                    <div id="customerPopup" class="popup">
+                        <div class="popup-content">
+                            <span class="close" id="closePopup">&times;</span>
+                            <h2>Pilih Customer</h2>
+                            <form id="customerForm">
+                                <select name="customer" id="customerSelect">
+                                    <?php
+                                    // Ambil data pelanggan dari database
+                                    $conn = new mysqli('localhost', 'root', 'AnginTornado', 'mitrasinerji');
+                                    if ($conn->connect_error) {
+                                        die("Koneksi gagal: " . $conn->connect_error);
+                                    }
+                                    $sql = "SELECT id, kode, nama, telp FROM customers";
+                                    $result = $conn->query($sql);
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<option value='" . $row['id'] . "'>" . $row['nama'] . "</option>";
+                                    }
+                                    $conn->close();
+                                    ?>
+                                </select>
+                                <button type="submit">Pilih</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>    
             </div>
             <div class="mb-1 row">
                 <label for="nama" class="col-sm-2 col-form-label">Nama</label>
