@@ -7,6 +7,9 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
+    <!-- Bootstrap Datepicker CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+
     <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
 
@@ -91,18 +94,25 @@
                 <div class="col-sm-10">
                 </div>
             </div>
-            <div class="mb-1 row">
+            <div class="mb-1 row align-items-center">
                 <label for="no" class="col-sm-2 col-form-label">No</label>
-                <div class="col-sm-10">
-                <input type="text" class="form-control short-label" id="no">
+                <div class="col-sm-10 d-flex align-items-center">
+                    <input type="text" class="form-control short-label me-2" id="no" readonly>
+                    <button type="button" class="btn btn-primary" onclick="generateTransactionNo()">Generate Nomor</button>
                 </div>
             </div>
-            <div class="mb-1 row">
+            <div class="mb-3 row">
+                <label for="datepicker" class="col-sm-2 col-form-label">Tanggal</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control short-label" id="datepicker">
+                </div>
+            </div>
+            <!-- <div class="mb-1 row">
                 <label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
                 <div class="col-sm-10">
                 <input type="text" class="form-control  short-label" id="tanggal">
                 </div>
-            </div>
+            </div> -->
             <div class="mb-1 row">
                 <label for="Customer" class="col-sm-2 col-form-label">Customer</label>
                 <div class="col-sm-10">
@@ -181,6 +191,18 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+   
+    <!-- jQuery (required by Bootstrap Datepicker) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Bootstrap Datepicker JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+ 
+    <!-- buat selalupaling bawah sebelum /body agar fungsi js bisa runing -->
+    <script src="script.js"></script>
 
 </body>
 </html>
