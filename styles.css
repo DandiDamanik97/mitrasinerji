@@ -1,0 +1,21 @@
+.border-container {
+  border: 1px solid #000000; /* Border di sekitar container */
+  padding: 16px; /* Jarak antara border dan konten */
+  border-radius: 8px; /* Membuat sudut border melengkung */
+  margin-top: 20px; /* Jarak dari elemen atas */
+}
+
+.table-bordered {
+  border: 1px solid #5da2e7; /* Garis luar tabel */
+}
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #5da2e7; /* Garis luar sel */
+}
+.table-info {
+  background-color: #5da2e7; /* Warna latar belakang header tabel */
+}
+
+.short-label {
+  max-width: 250px; /* Sesuaikan lebar sesuai kebutuhan */
+}
