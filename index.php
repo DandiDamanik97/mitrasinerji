@@ -170,6 +170,10 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center mt-4">
+                <button type="button" class="btn btn-success me-2">Simpan</button>
+                <button type="button" class="btn btn-warning">Batal</button>
+            </div>
         </div>
     </div>
 
