@@ -115,7 +115,7 @@
             <div class="mb-1 row align-items-center">
             <label for="no" class="col-sm-2 col-form-label">Kode</label>
                 <div class="col-sm-10 d-flex align-items-center">
-                <input type="text" class="form-control short-label me-2" id="no" readonly>
+                <input type="text" class="form-control short-label me-2" id="kode" readonly>
                 <button type="button" id="openPopup" class=" btn btn-primary col-sm-2 col-form-label">Kode</button>
                     <div id="customerPopup" class="popup">
                         <div class="popup-content">
@@ -132,12 +132,12 @@
                                     $sql = "SELECT id, kode, nama, telp FROM customers";
                                     $result = $conn->query($sql);
                                     while ($row = $result->fetch_assoc()) {
-                                        echo "<option value='" . $row['id'] . "'>" . $row['nama'] . "</option>";
+                                        echo "<option value='" . $row['id'] ."' data-nama='" . $row['nama'] . "' data-telp='" . $row['telp'] . "' data-kode='" . $row['kode'] . "'>" . $row['nama'] . "</option>";
                                     }
                                     $conn->close();
                                     ?>
                                 </select>
-                                <button type="submit">Pilih</button>
+                                <button type="button" class="btn btn-primary mt-2" id="selectCustomer">Pilih</button>
                             </form>
                         </div>
                     </div>

@@ -20,11 +20,25 @@ $(document).ready(function () {
   });
 });
 
-// JavaScript to handle the popup
+// JavaScript untuk menangani pop-up
 document.getElementById("openPopup").addEventListener("click", function () {
   document.getElementById("customerPopup").style.display = "flex";
 });
 
 document.getElementById("closePopup").addEventListener("click", function () {
   document.getElementById("customerPopup").style.display = "none";
+});
+
+// JavaScript untuk mengisi kolom nama dan telepon berdasarkan pilihan customer
+document.getElementById("selectCustomer").addEventListener("click", function () {
+  var selectedOption = document.getElementById("customerSelect").options[document.getElementById("customerSelect").selectedIndex];
+  var kode = selectedOption.getAttribute("data-kode");
+  var nama = selectedOption.getAttribute("data-nama");
+  var telp = selectedOption.getAttribute("data-telp");
+
+  document.getElementById("nama").value = nama;
+  document.getElementById("telepon").value = telp;
+  document.getElementById("kode").value = kode;
+
+  document.getElementById("customerPopup").style.display = "none"; // Menutup pop-up setelah memilih customer
 });
