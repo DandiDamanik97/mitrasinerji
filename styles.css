@@ -12,6 +12,24 @@
 .table-bordered td {
   border: 1px solid #5da2e7; /* Garis luar sel */
 }
+
+/* Gaya untuk tabel ringkasan */
+.table-summary {
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+}
+
+.table-summary th {
+  background-color: #f1f1f1; /* Warna latar belakang untuk header tabel ringkasan */
+  font-weight: bold;
+  text-align: left; /* Menyelaraskan teks ke kiri */
+}
+
+.table-summary td {
+  text-align: right; /* Menyelaraskan teks ke kanan untuk kolom nilai */
+  padding: 8px;
+}
+
 .table-info {
   background-color: #5da2e7; /* Warna latar belakang header tabel */
 }

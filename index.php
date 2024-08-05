@@ -85,6 +85,7 @@
 
     <!-- akhir daftar transaksi -->
 
+    
     <!-- form input -->
     <div class="container container-custom">
         <div class="border-container">
@@ -154,51 +155,112 @@
                 <div class="col-sm-10">
                 <input type="text" class="form-control short-label" id="telepon">
                 </div>
-            </div>
-            <table class="table table-bordered border-primary">
+            </div>           
+            <table class="table main-table table-bordered border-primary">
                 <thead class="table-info">
                     <tr>
+                        <!-- Tombol di HTML -->
+                        <th scope="col">
+                        <button type="button" id="bukaPopup" class=" btn btn-primary col-sm-20 col-form-label">Tambah</button>
+                        </th>
+                                            
                         <th scope="col">No</th>
-                        <th scope="col">No Transaksi</th>
-                        <th scope="col">Tanggal</th>
-                        <th scope="col">Nama Customer</th>
-                        <th scope="col">Jumlah Barang</th>
-                        <th scope="col">Sub Total</th>
-                        <th scope="col">Diskon</th>
-                        <th scope="col">Ongkir</th>
+                        <th scope="col">Kode Barang</th>
+                        <th scope="col">Nama Barang</th>
+                        <th scope="col">QTY</th>
+                        <th scope="col">Harga Bandrol</th>
+                        <th scope="col" colspan="2">Diskon</th>
+                        <th scope="col">Harga Diskon</th>
                         <th scope="col">Total</th>
                     </tr>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th scope="col">%</th>
+                        <th scope="col">RP</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
                 </thead>
+                
+                <tbody>
+                <tr>
+                    <td class='text-center'>
+                        <button class='btn btn-warning btn-sm' onclick="editItem(id)">Ubah</button>
+                        <button class='btn btn-danger btn-sm' onclick="deleteItem(id)">Hapus</button>
+                    </td>
+                    <td>1</td>
+                    <td><input type="text" id="kodeBarang" placeholder="Kode Barang" readonly></td>
+                    <td><input type="text" id="namaBarang" placeholder="Nama Barang" readonly></td>
+                    <td> <input type="number" id="qty" oninput="hitungTotal()"></td>
+                    <td><input type="number" id="hargaBandrol" placeholder="Harga Bandrol" readonly></td>
+                    <td><input type="number" id="diskonPersen" oninput="hitungTotal()"></td>
+                    <td><input type="number" id="diskonRp" placeholder="Diskon Rp" readonly></td>
+                    <td><input type="number" id="hargaDiskon" placeholder="Harga Diskon" readonly></td>
+                    <td><input type="number" id="totalHarga" placeholder="Total Harga" readonly></td>
+                </tr>          
+                </tbody>
+            </table>
+            <!-- Popup untuk Pemilihan Barang -->
+                <div id="barangPopup" class="popup">
+                    <div class="popup-content">
+                        <span class="close" id="closePopup">&times;</span>
+                        <h2>Pilih Barang</h2>
+                        <form id="barangForm">
+                            <select name="barang" id="barangSelect">
+                                <?php
+                                    // Ambil data barang dari database
+                                    $conn = new mysqli('localhost', 'root', 'AnginTornado', 'mitrasinerji');
+                                    if ($conn->connect_error) {
+                                        die("Koneksi gagal: " . $conn->connect_error);
+                                    }
+                                    $sql = "SELECT id, kode, nama, harga FROM barangs";
+                                    $result = $conn->query($sql);
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<option value='" . $row['id'] . "' data-nama='" . $row['nama'] . "' data-harga='" . $row['harga'] . "' data-kode='" . $row['kode'] . "'>" . $row['nama'] . "</option>";
+                                    }
+                                    $conn->close();
+                                ?>
+                            </select>
+                            <button type="button" class="btn btn-primary mt-2" id="selectBarang">Pilih</button>
+                        </form>
+                    </div>
+                </div>
+
+
+            <table class="table table-summary" id="summary">
                 <tbody>
                     <tr>
-                        <th scope="row">1</th>
-                        <td>001</td>
-                        <td>2024-08-01</td>
-                        <td>Mark</td>
-                        <td>5</td>
-                        <td>Rp 500.000</td>
-                        <td>Rp 50.000</td>
-                        <td>Rp 20.000</td>
-                        <td>Rp 470.000</td>
+                    <th scope="row">Sub Total</th>
+                    <td>
+                        <input type="text" class="form-control short-label" id="diskon" value="2.495.000" readonly>
+                    </td>
                     </tr>
                     <tr>
-                        <th scope="row">2</th>
-                        <td>002</td>
-                        <td>2024-08-02</td>
-                        <td>Jacob</td>
-                        <td>3</td>
-                        <td>Rp 300.000</td>
-                        <td>Rp 30.000</td>
-                        <td>Rp 15.000</td>
-                        <td>Rp 285.000</td>
+                    <th scope="row">Diskon</th>
+                    <td>
+                        <input type="text" class="form-control short-label" id="diskon" value="5.000">
+                    </td>
                     </tr>
                     <tr>
-                        <th scope="row"></th>
-                        <td colspan="7" class="text-end">Grand Total</td>
-                        <td>Rp 755.000</td>
+                    <th scope="row">Ongkir</th>
+                    <td>
+                        <input type="text" class="form-control short-label" id="diskon" value="10.000">
+                    </td>
+                    </tr>
+                    <tr>
+                    <th scope="row">Total Bayar</th>
+                    <td>
+                        <input type="text" class="form-control short-label" id="diskon" value="2.495.000" readonly>
+                    </td>
                     </tr>
                 </tbody>
             </table>
+            
             <div class="d-flex justify-content-center mt-4">
                 <button type="button" class="btn btn-success me-2">Simpan</button>
                 <button type="button" class="btn btn-warning">Batal</button>
@@ -222,6 +284,6 @@
  
     <!-- buat selalupaling bawah sebelum /body agar fungsi js bisa runing -->
     <script src="script.js"></script>
-
+    
 </body>
 </html>
