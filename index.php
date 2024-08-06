@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<!-- Navbar Judul -->
+    <!-- Navbar Judul -->
     <nav class="navbar bg-body-tertiary navbar-custom">
         <div class="container-fluid d-flex flex-column align-items-center">
             <span class="navbar-brand h1">Test Programming</span>
@@ -50,7 +50,7 @@
                         <th scope="col">Total</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="daftar-transaksi">
                     <tr>
                         <th scope="row">1</th>
                         <td>001</td>
@@ -92,120 +92,128 @@
             <h2 class="mb-4">Form Input</h2>
             <div class="mb-1 row">
                 <label for="transaksi" class="col-sm-2 col-form-label">Transaksi</label>
-                <div class="col-sm-10">
-                </div>
+                <!-- <div class="col-sm-10">
+                </div> -->
             </div>
-            <div class="mb-1 row align-items-center">
-                <label for="no" class="col-sm-2 col-form-label">No</label>
-                <div class="col-sm-10 d-flex align-items-center">
-                    <input type="text" class="form-control short-label me-2" id="no" readonly>
-                    <button type="button" class="btn btn-primary" onclick="generateTransactionNo()">Generate Nomor</button>
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label for="datepicker" class="col-sm-2 col-form-label">Tanggal</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control short-label" id="datepicker">
-                </div>
-            </div>
-            <div class="mb-1 row">
-                <label for="Customer" class="col-sm-2 col-form-label">Customer</label>
-                <div class="col-sm-10">
-                </div>
-            </div>
-            <div class="mb-1 row align-items-center">
-            <label for="no" class="col-sm-2 col-form-label">Kode</label>
-                <div class="col-sm-10 d-flex align-items-center">
-                <input type="text" class="form-control short-label me-2" id="kode" readonly>
-                <button type="button" id="openPopup" class=" btn btn-primary col-sm-2 col-form-label">Kode</button>
-                    <div id="customerPopup" class="popup">
-                        <div class="popup-content">
-                            <span class="close" id="closePopup">&times;</span>
-                            <h2>Pilih Customer</h2>
-                            <form id="customerForm">
-                                <select name="customer" id="customerSelect">
-                                    <?php
-                                    // Ambil data pelanggan dari database
-                                    $conn = new mysqli('localhost', 'root', 'AnginTornado', 'mitrasinerji');
-                                    if ($conn->connect_error) {
-                                        die("Koneksi gagal: " . $conn->connect_error);
-                                    }
-                                    $sql = "SELECT id, kode, nama, telp FROM customers";
-                                    $result = $conn->query($sql);
-                                    while ($row = $result->fetch_assoc()) {
-                                        echo "<option value='" . $row['id'] ."' data-nama='" . $row['nama'] . "' data-telp='" . $row['telp'] . "' data-kode='" . $row['kode'] . "'>" . $row['nama'] . "</option>";
-                                    }
-                                    $conn->close();
-                                    ?>
-                                </select>
-                                <button type="button" class="btn btn-primary mt-2" id="selectCustomer">Pilih</button>
-                            </form>
-                        </div>
+            <form action="" id="form-input" autocomplete="off">
+                <div class="mb-1 row align-items-center">
+                    <label for="no" class="col-sm-2 col-form-label">No</label>
+                    <div class="col-sm-10 d-flex align-items-center">
+                        <input type="text" class="form-control short-label me-2" id="no" readonly>
+                        <button type="button" class="btn btn-primary" onclick="generateTransactionNo()">Generate Nomor</button>
                     </div>
-                </div>    
-            </div>
-            <div class="mb-1 row">
-                <label for="nama" class="col-sm-2 col-form-label">Nama</label>
-                <div class="col-sm-10">
-                <input type="text" class="form-control short-label" id="nama">
                 </div>
-            </div>
-            <div class="mb-3 row">
-                <label for="telepon" class="col-sm-2 col-form-label">Telepon</label>
-                <div class="col-sm-10">
-                <input type="text" class="form-control short-label" id="telepon">
+                <div class="mb-3 row">
+                    <label for="datepicker" class="col-sm-2 col-form-label">Tanggal</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control short-label" id="datepicker">
+                    </div>
                 </div>
-            </div>           
-            <table class="table main-table table-bordered border-primary">
-                <thead class="table-info">
-                    <tr>
-                        <!-- Tombol di HTML -->
-                        <th scope="col">
-                        <button type="button" id="bukaPopup" class=" btn btn-primary col-sm-20 col-form-label">Tambah</button>
-                        </th>
-                                            
-                        <th scope="col">No</th>
-                        <th scope="col">Kode Barang</th>
-                        <th scope="col">Nama Barang</th>
-                        <th scope="col">QTY</th>
-                        <th scope="col">Harga Bandrol</th>
-                        <th scope="col" colspan="2">Diskon</th>
-                        <th scope="col">Harga Diskon</th>
-                        <th scope="col">Total</th>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th scope="col">%</th>
-                        <th scope="col">RP</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                <tr>
-                    <td class='text-center'>
-                        <button class='btn btn-warning btn-sm' onclick="editItem(id)">Ubah</button>
-                        <button class='btn btn-danger btn-sm' onclick="deleteItem(id)">Hapus</button>
-                    </td>
-                    <td>1</td>
-                    <td><input type="text" id="kodeBarang" placeholder="Kode Barang" readonly></td>
-                    <td><input type="text" id="namaBarang" placeholder="Nama Barang" readonly></td>
-                    <td> <input type="number" id="qty" oninput="hitungTotal()"></td>
-                    <td><input type="number" id="hargaBandrol" placeholder="Harga Bandrol" readonly></td>
-                    <td><input type="number" id="diskonPersen" oninput="hitungTotal()"></td>
-                    <td><input type="number" id="diskonRp" placeholder="Diskon Rp" readonly></td>
-                    <td><input type="number" id="hargaDiskon" placeholder="Harga Diskon" readonly></td>
-                    <td><input type="number" id="totalHarga" placeholder="Total Harga" readonly></td>
-                </tr>          
-                </tbody>
-            </table>
-            <!-- Popup untuk Pemilihan Barang -->
+                <div class="mb-1 row">
+                    <label for="Customer" class="col-sm-2 col-form-label">Customer</label>
+                    <div class="col-sm-10">
+                    </div>
+                </div>
+                <div class="mb-1 row align-items-center">
+                <label for="kode" class="col-sm-2 col-form-label">Kode</label>
+                    <div class="col-sm-10 d-flex align-items-center">
+                    <input type="text" class="form-control short-label me-2" id="kode" readonly>
+                    <button type="button" id="openPopup" class=" btn btn-primary col-sm-2 col-form-label">Kode</button>
+                        <div id="customerPopup" class="popup">
+                            <div class="popup-content">
+                                <span class="close" id="closePopup">&times;</span>
+                                <h2>Pilih Customer</h2>
+                                <form id="customerForm">
+                                    <select name="customer" id="customerSelect">
+                                        <?php
+                                        // Ambil data pelanggan dari database
+                                        $conn = new mysqli('localhost', 'root', 'AnginTornado', 'mitrasinerji');
+                                        if ($conn->connect_error) {
+                                            die("Koneksi gagal: " . $conn->connect_error);
+                                        }
+                                        $sql = "SELECT id, kode, nama, telp FROM customers";
+                                        $result = $conn->query($sql);
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value='" . $row['id'] ."' data-nama='" . $row['nama'] . "' data-telp='" . $row['telp'] . "' data-kode='" . $row['kode'] . "'>" . $row['nama'] . "</option>";
+                                        }
+                                        $conn->close();
+                                        ?>
+                                    </select>
+                                    <button type="button" class="btn btn-primary mt-2" id="selectCustomer">Pilih</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+                <div class="mb-1 row">
+                    <label for="nama" class="col-sm-2 col-form-label">Nama</label>
+                    <div class="col-sm-10">
+                    <input type="text" class="form-control short-label" id="nama">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="telepon" class="col-sm-2 col-form-label">Telepon</label>
+                    <div class="col-sm-10">
+                    <input type="text" class="form-control short-label" id="telepon">
+                    </div>
+                </div>           
+                <div class="container">
+                    <table class="table main-table table-bordered border-primary">
+                        <thead class="table-info">
+                            <tr>
+                                <!-- Tombol di HTML -->
+                                <th scope="col">
+                                <button type="button" id="bukaPopup" class=" btn btn-primary col-sm-20 col-form-label">Tambah</button>
+                                </th>
+                                                    
+                                <th scope="col">No</th>
+                                <th scope="col">Kode Barang</th>
+                                <th scope="col">Nama Barang</th>
+                                <th scope="col">QTY</th>
+                                <th scope="col">Harga Bandrol</th>
+                                <th scope="col" colspan="2">Diskon</th>
+                                <th scope="col">Harga Diskon</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th scope="col">%</th>
+                                <th scope="col">RP</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody id="list-form-input">
+                        
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="9" class="text-end">Subtotal:</td>
+                            <td><input type="number" id="subTotal" readonly></td>
+                        </tr>
+                        <tr>
+                            <td colspan="9" class="text-end">Diskon:</td>
+                            <td><input type="number" id="diskon" oninput="hitungTotalBayar()"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="9" class="text-end">Ongkir:</td>
+                            <td><input type="number" id="ongkir" oninput="hitungTotalBayar()"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="9" class="text-end">Total Bayar:</td>
+                            <td><input type="number" id="totalBayar" readonly></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <!-- Popup untuk Pemilihan Barang -->
                 <div id="barangPopup" class="popup">
                     <div class="popup-content">
                         <span class="close" id="closePopup">&times;</span>
@@ -230,41 +238,12 @@
                         </form>
                     </div>
                 </div>
-
-
-            <table class="table table-summary" id="summary">
-                <tbody>
-                    <tr>
-                    <th scope="row">Sub Total</th>
-                    <td>
-                        <input type="text" class="form-control short-label" id="diskon" value="2.495.000" readonly>
-                    </td>
-                    </tr>
-                    <tr>
-                    <th scope="row">Diskon</th>
-                    <td>
-                        <input type="text" class="form-control short-label" id="diskon" value="5.000">
-                    </td>
-                    </tr>
-                    <tr>
-                    <th scope="row">Ongkir</th>
-                    <td>
-                        <input type="text" class="form-control short-label" id="diskon" value="10.000">
-                    </td>
-                    </tr>
-                    <tr>
-                    <th scope="row">Total Bayar</th>
-                    <td>
-                        <input type="text" class="form-control short-label" id="diskon" value="2.495.000" readonly>
-                    </td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <div class="d-flex justify-content-center mt-4">
-                <button type="button" class="btn btn-success me-2">Simpan</button>
-                <button type="button" class="btn btn-warning">Batal</button>
-            </div>
+                <div class="d-flex justify-content-center mt-4">
+                    <!-- <button type="button" class="btn btn-success me-2">Simpan</button> -->
+                    <input class="btn btn-success add-btn me-2" type="submit" value="Simpan" />
+                    <button type="button" class="btn btn-warning">Batal</button>
+                </div>
+            </form>
         </div>
     </div>
 

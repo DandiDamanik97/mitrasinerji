@@ -52,41 +52,93 @@ document.getElementById("closePopup").addEventListener("click", function () {
   document.getElementById("barangPopup").style.display = "none";
 });
 
+//tambah barang
 document.getElementById("selectBarang").addEventListener("click", function () {
-  var select = document.getElementById("barangSelect");
-  var selectedOption = select.options[select.selectedIndex];
-  var nama = selectedOption.getAttribute("data-nama");
-  var harga = selectedOption.getAttribute("data-harga");
-  var kode = selectedOption.getAttribute("data-kode");
+  const selectedOption = document.getElementById("barangSelect").selectedOptions[0];
+  const kodeBarang = selectedOption.getAttribute("data-kode");
+  const namaBarang = selectedOption.getAttribute("data-nama");
+  const hargaBandrol = selectedOption.getAttribute("data-harga");
 
-  // Isi elemen input dengan data yang dipilih
-  document.querySelector("tbody tr td:nth-child(3) input").value = kode;
-  document.querySelector("tbody tr td:nth-child(4) input").value = nama;
-  document.querySelector("tbody tr td:nth-child(6) input").value = harga;
+  const tbody = document.getElementById("list-form-input");
+  const rowCount = tbody.rows.length + 1;
 
-  // Menutup popup setelah memilih
+  const row = document.createElement("tr");
+  row.innerHTML = `
+            <td class='text-center'>
+                <a href="#" class="btn btn-warning btn-sm ubah">Ubah</a>
+                <a href="#" class="btn btn-danger btn-sm hapus">Hapus</a>
+            </td>
+            <td>${rowCount}</td>
+            <td><input type="text" value="${kodeBarang}" readonly></td>
+            <td><input type="text" value="${namaBarang}" readonly></td>
+            <td><input type="number" class="qty" oninput="hitungTotal(this)"></td>
+            <td><input type="number" value="${hargaBandrol}" readonly></td>
+            <td><input type="number" class="diskonPersen" oninput="hitungTotal(this)"></td>
+            <td><input type="number" class="diskonRp" readonly></td>
+            <td><input type="number" class="hargaDiskon" readonly></td>
+            <td><input type="number" class="totalHarga" readonly></td>
+        `;
+  tbody.appendChild(row);
+
   document.getElementById("barangPopup").style.display = "none";
+
+  hitungSubTotal();
 });
 
-function hitungTotal() {
-  var qty = parseFloat(document.getElementById("qty").value) || 0;
-  var hargaBandrol = parseFloat(document.getElementById("hargaBandrol").value) || 0;
-  var diskonPersen = parseFloat(document.getElementById("diskonPersen").value) || 0;
+//fungsi perhitungan total
+function hitungTotal(element) {
+  const row = element.closest("tr");
+  const qty = row.querySelector(".qty").value;
+  const hargaBandrol = row.querySelector("td:nth-child(6) input").value;
+  const diskonPersen = row.querySelector(".diskonPersen").value;
 
-  // Hitung diskon dalam rupiah berdasarkan persen diskon
-  var diskonRp = hargaBandrol * (diskonPersen / 100) * qty;
-  document.getElementById("diskonRp").value = diskonRp.toFixed(2);
+  const diskonRp = (hargaBandrol * diskonPersen) / 100;
+  const hargaDiskon = hargaBandrol - diskonRp;
+  const totalHarga = hargaDiskon * qty;
 
-  // Hitung harga setelah diskon
-  var hargaDiskon = hargaBandrol - diskonRp;
-  document.getElementById("hargaDiskon").value = hargaDiskon.toFixed(2);
+  row.querySelector(".diskonRp").value = diskonRp.toFixed(2);
+  row.querySelector(".hargaDiskon").value = hargaDiskon.toFixed(2);
+  row.querySelector(".totalHarga").value = totalHarga.toFixed(2);
 
-  // Pastikan harga tidak negatif
-  if (hargaDiskon < 0) {
-    hargaDiskon = 0;
-  }
-
-  // Hitung total harga
-  var totalHarga = qty * hargaDiskon;
-  document.getElementById("totalHarga").value = totalHarga.toFixed(2);
+  hitungSubTotal();
 }
+
+//fungsi perhitungan sub total
+function hitungSubTotal() {
+  let subTotal = 0;
+  const totalHargaElements = document.querySelectorAll(".totalHarga");
+  totalHargaElements.forEach((element) => {
+    subTotal += parseFloat(element.value) || 0;
+  });
+  document.getElementById("subTotal").value = subTotal.toFixed(2);
+  hitungTotalBayar();
+}
+
+//fungsi perhitungan totalbayar
+function hitungTotalBayar() {
+  const subTotal = parseFloat(document.getElementById("subTotal").value) || 0;
+  const diskon = parseFloat(document.getElementById("diskon").value) || 0;
+  const ongkir = parseFloat(document.getElementById("ongkir").value) || 0;
+  const totalBayar = subTotal - diskon + ongkir;
+  document.getElementById("totalBayar").value = totalBayar.toFixed(2);
+}
+
+// edit data
+document.querySelector("#student-list").addEventListener("click", (e) => {
+  target = e.target;
+  if (target.classList.contains("edit")) {
+    selectedRow = target.parentElement.parentElement;
+    document.querySelector("#firstName").value = selectedRow.children[0].textContent;
+    document.querySelector("#lastName").value = selectedRow.children[1].textContent;
+    document.querySelector("#rollNo").value = selectedRow.children[2].textContent;
+  }
+});
+
+//delete Data
+document.querySelector("#list-form-input").addEventListener("click", (e) => {
+  target = e.target;
+  if (target.classList.contains("hapus")) {
+    target.parentElement.parentElement.remove();
+    showAlert("barang telah di hapus", "danger");
+  }
+});
