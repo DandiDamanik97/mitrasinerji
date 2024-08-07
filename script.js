@@ -51,20 +51,12 @@ window.addEventListener("click", function (event) {
 });
 
 // popup barang
-
 document.getElementById("bukaPopup").addEventListener("click", function () {
   document.getElementById("barangPopup").style.display = "flex";
 });
 
 document.getElementById("closePopup").addEventListener("click", function () {
   document.getElementById("barangPopup").style.display = "none";
-});
-
-// Menutup popup jika klik di luar area popup barang
-window.addEventListener("click", function (event) {
-  if (event.target === barangPopup) {
-    barangPopup.style.display = "none";
-  }
 });
 
 //tambah barang
@@ -84,14 +76,14 @@ document.getElementById("selectBarang").addEventListener("click", function () {
                 <a href="#" class="btn btn-danger btn-sm hapus">Hapus</a>
             </td>
             <td>${rowCount}</td>
-            <td><input type="text" value="${kodeBarang}" readonly></td>
-            <td><input type="text" value="${namaBarang}" readonly></td>
-            <td><input type="number" class="qty" oninput="hitungTotal(this)"></td>
-            <td><input type="number" value="${hargaBandrol}" readonly></td>
-            <td><input type="number" class="diskonPersen" oninput="hitungTotal(this)"></td>
-            <td><input type="number" class="diskonRp" readonly></td>
-            <td><input type="number" class="hargaDiskon" readonly></td>
-            <td><input type="number" class="totalHarga" readonly></td>
+            <td><input type="text" value="${kodeBarang}" readonly style="width: 60px;"></td>
+            <td><input type="text" value="${namaBarang}" readonly style="width: 100px;"></td>
+            <td><input type="number" class="qty" oninput="hitungTotal(this)" style="width: 70px;"></td>
+            <td><input type="number" value="${hargaBandrol}" readonly style="width: 100px;"></td>
+            <td><input type="number" class="diskonPersen" oninput="hitungTotal(this)" style="width: 50px;"></td>
+            <td><input type="number" class="diskonRp" readonly style="width: 120px;"></td>
+            <td><input type="number" class="hargaDiskon" readonly style="width: 120px;"></td>
+            <td><input type="number" class="totalHarga" readonly style="width: 120px;"></td>
         `;
   tbody.appendChild(row);
 
@@ -186,7 +178,7 @@ function handleSearch(event) {
       if (data && data.no_transaksi) {
         tabelBody.innerHTML = `
                   <tr>
-                      <td></td>
+                      <td>1</td>
                       <td class='text-center'>${data.no_transaksi}</td>
                       <td>${data.tanggal}</td>
                       <td>${data.nama_customer}</td>

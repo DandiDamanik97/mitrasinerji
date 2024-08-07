@@ -188,24 +188,24 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td colspan="9" class="text-end">Jumlah Barang:</td>
-                                <td><input type="number" id="jumlah_barang" name="jumlah_barang" readonly></td>
+                                <td colspan="4" class="text-end">Jumlah Barang:</td>
+                                <td><input type="number" id="jumlah_barang" name="jumlah_barang" style="width: 70px;" readonly></td>
                             </tr>
                             <tr>
                                 <td colspan="9" class="text-end">Subtotal:</td>
-                                <td><input type="number" id="subTotal" name="sub_total" readonly></td>
+                                <td><input type="number" id="subTotal" name="sub_total" style="width: 120px;" readonly></td>
                             </tr>
                             <tr>
                                 <td colspan="9" class="text-end">Diskon:</td>
-                                <td><input type="number" id="diskon" name="diskon" oninput="hitungTotalBayar()"></td>
+                                <td><input type="number" id="diskon" name="diskon" oninput="hitungTotalBayar()" style="width: 120px;"></td>
                             </tr>
                             <tr>
                                 <td colspan="9" class="text-end">Ongkir:</td>
-                                <td><input type="number" id="ongkir" name="ongkir" oninput="hitungTotalBayar()"></td>
+                                <td><input type="number" id="ongkir" name="ongkir" oninput="hitungTotalBayar()" style="width: 120px;"></td>
                             </tr>
                             <tr>
                                 <td colspan="9" class="text-end">Total Bayar:</td>
-                                <td><input type="number" id="totalBayar" name="total" readonly></td>
+                                <td><input type="number" id="totalBayar" name="total" style="width: 120px;" readonly></td>
                             </tr>
                             </tfoot>
                         </table>
