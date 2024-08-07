@@ -43,13 +43,28 @@ document.getElementById("selectCustomer").addEventListener("click", function () 
   document.getElementById("customerPopup").style.display = "none"; // Menutup pop-up setelah memilih customer
 });
 
+// Menutup popup jika klik di luar area popup customer
+window.addEventListener("click", function (event) {
+  if (event.target === customerPopup) {
+    customerPopup.style.display = "none";
+  }
+});
+
 // popup barang
+
 document.getElementById("bukaPopup").addEventListener("click", function () {
   document.getElementById("barangPopup").style.display = "flex";
 });
 
 document.getElementById("closePopup").addEventListener("click", function () {
   document.getElementById("barangPopup").style.display = "none";
+});
+
+// Menutup popup jika klik di luar area popup barang
+window.addEventListener("click", function (event) {
+  if (event.target === barangPopup) {
+    barangPopup.style.display = "none";
+  }
 });
 
 //tambah barang
@@ -123,6 +138,16 @@ function hitungTotalBayar() {
   document.getElementById("totalBayar").value = totalBayar.toFixed(2);
 }
 
+// Event listener untuk menangani klik pada tombol hapus
+document.querySelector("#list-form-input").addEventListener("click", (e) => {
+  const target = e.target;
+  if (target.classList.contains("hapus")) {
+    // Menghapus baris yang berisi tombol hapus
+    target.closest("tr").remove();
+    showAlert("Barang telah dihapus", "danger");
+  }
+});
+
 // edit data
 document.querySelector("#student-list").addEventListener("click", (e) => {
   target = e.target;
@@ -131,14 +156,5 @@ document.querySelector("#student-list").addEventListener("click", (e) => {
     document.querySelector("#firstName").value = selectedRow.children[0].textContent;
     document.querySelector("#lastName").value = selectedRow.children[1].textContent;
     document.querySelector("#rollNo").value = selectedRow.children[2].textContent;
-  }
-});
-
-//delete Data
-document.querySelector("#list-form-input").addEventListener("click", (e) => {
-  target = e.target;
-  if (target.classList.contains("hapus")) {
-    target.parentElement.parentElement.remove();
-    showAlert("barang telah di hapus", "danger");
   }
 });
