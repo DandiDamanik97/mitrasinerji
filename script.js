@@ -10,11 +10,11 @@ function generateTransactionNo() {
   const transactionNo = `${year}${month}${day}-${randomNum}`;
 
   // Menetapkan nomor transaksi ke input field
-  document.getElementById("no").value = transactionNo;
+  document.getElementById("no_transaksi").value = transactionNo;
 }
 
 $(document).ready(function () {
-  $("#datepicker").datepicker({
+  $("#tanggal").datepicker({
     format: "yyyy-mm-dd", // Format tanggal
     autoclose: true, // Menutup datepicker setelah memilih tanggal
   });
