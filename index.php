@@ -31,10 +31,11 @@
         <div class="border-container">
             <h2 class="mb-4">Daftar Transaksi</h2>
             <div class="d-flex justify-content-end mb-2">
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Cari" aria-label="Search" style="width: 200px;">
-                    <button class="btn btn-outline-success" type="submit">Cari</button>    
+                <form class="d-flex" role="search" onsubmit="handleSearch(event)">
+                    <input id="searchInput" class="form-control me-2" type="search" placeholder="Cari" aria-label="Search" style="width: 200px;">
+                    <button class="btn btn-outline-success" type="submit">Cari</button>
                 </form>
+                <div id="hasilPencarian" class="mt-3"></div>
             </div>
             <table class="table table-bordered border-primary">
                 <thead class="table-info">
@@ -50,7 +51,7 @@
                         <th scope="col">Total</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tabelBody">
                 <?php
                     include 'koneksi.php'; //include koneksi
                     $no = 1;
@@ -236,7 +237,6 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-center mt-4">
-                        <!-- <input class="btn btn-success me-2" type="submit" name="saveFirstName" value="Simpan Nama Depan" /> -->
                         <input class="btn btn-success me-2" type="submit" name="simpan" value="Simpan" />
                         <input class="btn btn-warning me-2" type="submit" value="Batal" />
                     </div>
@@ -244,6 +244,29 @@
         </div>
     </form>
     <!-- akhir input -->
+
+    <!-- Popup untuk menambah atau mengedit barang -->
+    <div id="barangPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" id="closePopup">&times;</span>
+            <h2>Tambah/Edit Barang</h2>
+            <form id="edit-form">
+                <div>
+                    <label for="kodeBarang">Kode Barang:</label>
+                    <input type="text" id="kodeBarang" name="kodeBarang" />
+                </div>
+                <div>
+                    <label for="namaBarang">Nama Barang:</label>
+                    <input type="text" id="namaBarang" name="namaBarang" />
+                </div>
+                <div>
+                    <label for="hargaBandrol">Harga Bandrol:</label>
+                    <input type="text" id="hargaBandrol" name="hargaBandrol" />
+                </div>
+                <button type="submit" class="btn btn-success">Simpan</button>
+            </form>
+        </div>
+    </div>
 
     
 

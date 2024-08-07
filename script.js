@@ -78,9 +78,9 @@ document.getElementById("selectBarang").addEventListener("click", function () {
   const rowCount = tbody.rows.length + 1;
 
   const row = document.createElement("tr");
+
   row.innerHTML = `
             <td class='text-center'>
-                <a href="#" class="btn btn-warning btn-sm ubah">Ubah</a>
                 <a href="#" class="btn btn-danger btn-sm hapus">Hapus</a>
             </td>
             <td>${rowCount}</td>
@@ -148,13 +148,58 @@ document.querySelector("#list-form-input").addEventListener("click", (e) => {
   }
 });
 
-// edit data
-document.querySelector("#student-list").addEventListener("click", (e) => {
-  target = e.target;
-  if (target.classList.contains("edit")) {
-    selectedRow = target.parentElement.parentElement;
-    document.querySelector("#firstName").value = selectedRow.children[0].textContent;
-    document.querySelector("#lastName").value = selectedRow.children[1].textContent;
-    document.querySelector("#rollNo").value = selectedRow.children[2].textContent;
-  }
-});
+// // Event listener untuk menangani klik pada tombol ubah
+// document.querySelector("#list-form-input").addEventListener("click", (e) => {
+//   const target = e.target;
+//   if (target.classList.contains("ubah")) {
+//     // Mendapatkan baris yang berisi tombol ubah
+//     const selectedRow = target.closest("tr");
+
+//     // Mengisi form dengan data dari baris yang dipilih
+//     document.querySelector("#kodeBarang").value = selectedRow.children[0].textContent; // Kode Barang
+//     document.querySelector("#namaBarang").value = selectedRow.children[1].textContent; // Nama Barang
+//     document.querySelector("#hargaBandrol").value = selectedRow.children[2].textContent; // Harga Bandrol
+
+//     // Menampilkan popup
+//     document.getElementById("barangPopup").style.display = "flex";
+//   }
+// });
+
+// // Event listener untuk menutup popup
+// document.getElementById("closePopup").addEventListener("click", function () {
+//   document.getElementById("barangPopup").style.display = "none";
+// });
+
+function handleSearch(event) {
+  event.preventDefault(); // Mencegah pengiriman formulir secara default
+  const no_transaksi = document.getElementById("searchInput").value;
+
+  // Mengirim permintaan AJAX ke PHP
+  fetch(`cari_transaksi.php?no_transaksi=${no_transaksi}`)
+    .then((response) => response.json())
+    .then((data) => {
+      const tabelBody = document.getElementById("tabelBody");
+      tabelBody.innerHTML = ""; // Clear previous data
+
+      if (data && data.no_transaksi) {
+        tabelBody.innerHTML = `
+                  <tr>
+                      <td></td>
+                      <td class='text-center'>${data.no_transaksi}</td>
+                      <td>${data.tanggal}</td>
+                      <td>${data.nama_customer}</td>
+                      <td>${data.jumlah_barang}</td>
+                      <td>${data.sub_total}</td>
+                      <td>${data.diskon}</td>
+                      <td>${data.ongkir}</td>
+                      <td>${data.total}</td>
+                  </tr>
+              `;
+      } else {
+        tabelBody.innerHTML = `<tr><td colspan="8" class='text-center'>Transaksi tidak ditemukan</td></tr>`;
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
