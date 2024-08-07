@@ -189,7 +189,7 @@
                             <tfoot>
                             <tr>
                                 <td colspan="9" class="text-end">Jumlah Barang:</td>
-                                <td><input type="number" id="jumlah_barang" name="jumlah_barang" oninput="hitungTotalBayar()"></td>
+                                <td><input type="number" id="jumlah_barang" name="jumlah_barang" readonly></td>
                             </tr>
                             <tr>
                                 <td colspan="9" class="text-end">Subtotal:</td>

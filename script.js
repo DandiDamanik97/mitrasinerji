@@ -127,7 +127,30 @@ function hitungSubTotal() {
   });
   document.getElementById("subTotal").value = subTotal.toFixed(2);
   hitungTotalBayar();
+  hitungJumlahBarang();
 }
+
+//fungsi perhitungan jumlah barang
+function hitungJumlahBarang() {
+  let jumlah_barang = 0;
+  const totalBarangElements = document.querySelectorAll(".qty");
+  totalBarangElements.forEach((element) => {
+    jumlah_barang += parseFloat(element.value) || 0;
+  });
+
+  const jumlahBarangElement = document.getElementById("jumlah_barang");
+  if (jumlahBarangElement) {
+    jumlahBarangElement.value = jumlah_barang.toFixed(2);
+  } else {
+    console.error("Elemen dengan ID 'jumlahBarang' tidak ditemukan.");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".qty").forEach((element) => {
+    element.addEventListener("input", hitungJumlahBarang);
+  });
+});
 
 //fungsi perhitungan totalbayar
 function hitungTotalBayar() {
@@ -148,28 +171,7 @@ document.querySelector("#list-form-input").addEventListener("click", (e) => {
   }
 });
 
-// // Event listener untuk menangani klik pada tombol ubah
-// document.querySelector("#list-form-input").addEventListener("click", (e) => {
-//   const target = e.target;
-//   if (target.classList.contains("ubah")) {
-//     // Mendapatkan baris yang berisi tombol ubah
-//     const selectedRow = target.closest("tr");
-
-//     // Mengisi form dengan data dari baris yang dipilih
-//     document.querySelector("#kodeBarang").value = selectedRow.children[0].textContent; // Kode Barang
-//     document.querySelector("#namaBarang").value = selectedRow.children[1].textContent; // Nama Barang
-//     document.querySelector("#hargaBandrol").value = selectedRow.children[2].textContent; // Harga Bandrol
-
-//     // Menampilkan popup
-//     document.getElementById("barangPopup").style.display = "flex";
-//   }
-// });
-
-// // Event listener untuk menutup popup
-// document.getElementById("closePopup").addEventListener("click", function () {
-//   document.getElementById("barangPopup").style.display = "none";
-// });
-
+// fungsi untuk event cari
 function handleSearch(event) {
   event.preventDefault(); // Mencegah pengiriman formulir secara default
   const no_transaksi = document.getElementById("searchInput").value;
