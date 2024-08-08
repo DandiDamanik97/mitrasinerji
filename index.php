@@ -245,33 +245,7 @@
     </form>
     <!-- akhir input -->
 
-    <!-- Popup untuk menambah atau mengedit barang -->
-    <div id="barangPopup" class="popup">
-        <div class="popup-content">
-            <span class="close" id="closePopup">&times;</span>
-            <h2>Tambah/Edit Barang</h2>
-            <form id="edit-form">
-                <div>
-                    <label for="kodeBarang">Kode Barang:</label>
-                    <input type="text" id="kodeBarang" name="kodeBarang" />
-                </div>
-                <div>
-                    <label for="namaBarang">Nama Barang:</label>
-                    <input type="text" id="namaBarang" name="namaBarang" />
-                </div>
-                <div>
-                    <label for="hargaBandrol">Harga Bandrol:</label>
-                    <input type="text" id="hargaBandrol" name="hargaBandrol" />
-                </div>
-                <button type="submit" class="btn btn-success">Simpan</button>
-            </form>
-        </div>
-    </div>
-
-    
-
-
-
+   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
    
     <!-- jQuery (required by Bootstrap Datepicker) -->

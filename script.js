@@ -29,6 +29,13 @@ document.getElementById("closePopup").addEventListener("click", function () {
   document.getElementById("customerPopup").style.display = "none";
 });
 
+// Menutup popup jika klik di luar area popup customer
+window.addEventListener("click", function (event) {
+  if (event.target === customerPopup) {
+    customerPopup.style.display = "none";
+  }
+});
+
 // JavaScript untuk mengisi kolom nama dan telepon berdasarkan pilihan customer
 document.getElementById("selectCustomer").addEventListener("click", function () {
   var selectedOption = document.getElementById("customerSelect").options[document.getElementById("customerSelect").selectedIndex];
@@ -43,20 +50,29 @@ document.getElementById("selectCustomer").addEventListener("click", function () 
   document.getElementById("customerPopup").style.display = "none"; // Menutup pop-up setelah memilih customer
 });
 
-// Menutup popup jika klik di luar area popup customer
+// Mendapatkan elemen popup dan tombol
+var barangPopup = document.getElementById("barangPopup");
+var bukaPopup = document.getElementById("bukaPopup");
+var closePopup = document.getElementById("closePopup");
+
+// Menampilkan popup
+bukaPopup.addEventListener("click", function () {
+  barangPopup.style.display = "flex";
+  console.log("Popup dibuka");
+});
+
+// Menutup popup dengan tombol close
+closePopup.addEventListener("click", function () {
+  barangPopup.style.display = "none";
+  console.log("Popup ditutup dengan tombol close");
+});
+
+// Menutup popup jika klik di luar area popup
 window.addEventListener("click", function (event) {
-  if (event.target === customerPopup) {
-    customerPopup.style.display = "none";
+  if (barangPopup.style.display === "flex" && !barangPopup.contains(event.target) && !bukaPopup.contains(event.target)) {
+    barangPopup.style.display = "none";
+    console.log("Popup ditutup karena klik di luar area popup");
   }
-});
-
-// popup barang
-document.getElementById("bukaPopup").addEventListener("click", function () {
-  document.getElementById("barangPopup").style.display = "flex";
-});
-
-document.getElementById("closePopup").addEventListener("click", function () {
-  document.getElementById("barangPopup").style.display = "none";
 });
 
 //tambah barang
